@@ -50,7 +50,8 @@ module.exports = (req, res) => {
       `안녕하세요! ${dept}에 관심 가져주셔서 감사합니다 😊\n` +
       `해당 전공에 대한 궁금증은 아래 담당 교수님께 1:1 상담 요청하실 수 있습니다.\n\n` +
       `👩‍🏫 담당 교수: ${info.prof}\n` +
-      `📞 전화번호: ${info.phone}`;
+      `📞 전화번호: ${info.phone}\n` +
+      `📩 이메일: ${info.email}\n`;
 
     return send(res, {
       version: "2.0",
