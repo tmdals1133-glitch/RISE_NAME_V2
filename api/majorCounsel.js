@@ -61,8 +61,9 @@ module.exports = (req, res) => {
               title: `🎓 ${dept} 상담 안내`,
               description: desc,
               buttons: [
-                { action: "webLink", label: "📎 학과 안내 페이지", webLinkUrl: info.homepage },
-                { action: "webLink", label: "💬 오픈채팅", webLinkUrl: info.openchat }
+              { action: "phone", label: "📞 전화하기", phoneNumber: info.phone },
+              { action: "webLink", label: "📎 학과 안내 페이지", webLinkUrl: info.homepage },
+              { action: "webLink", label: "💬 오픈채팅", webLinkUrl: info.openchat }
               ]
             }
           }
