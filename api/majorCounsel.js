@@ -1,9 +1,11 @@
+// api/majorCounsel.js
 const contacts = require("../data/contacts.json");
 
 const send = (res, obj) => {
-  res.status(200)
-     .setHeader("Content-Type", "application/json; charset=utf-8")
-     .send(JSON.stringify(obj));
+  res
+    .status(200)
+    .setHeader("Content-Type", "application/json; charset=utf-8")
+    .send(JSON.stringify(obj));
 };
 
 module.exports = (req, res) => {
@@ -18,11 +20,19 @@ module.exports = (req, res) => {
 
     const info = contacts[dept];
 
+    // 공통: 맨 첫 메시지는 로딩 문구
+    const loadingMsg = {
+      simpleText: {
+        text: "🔎 질문을 분석하고 있습니다...\n💡 곧 답변을 준비해 드릴게요! ⏳"
+      }
+    };
+
     if (!dept) {
       return send(res, {
         version: "2.0",
         template: {
           outputs: [
+            loadingMsg,
             { simpleText: { text: "학과명을 인식하지 못했어요 😥 ‘웹툰’, ‘펫’처럼 다시 물어봐 주세요." } }
           ]
         }
@@ -39,6 +49,7 @@ module.exports = (req, res) => {
         version: "2.0",
         template: {
           outputs: [
+            loadingMsg,
             { simpleText: { text: `‘${dept}’ 학과를 찾지 못했어요 😥 아래에서 선택해 주세요.` } }
           ],
           quickReplies
@@ -56,19 +67,22 @@ module.exports = (req, res) => {
       version: "2.0",
       template: {
         outputs: [
-          {
+          loadingMsg, // 1) 로딩 문구
+          {           // 2) 실제 상담 카드
             basicCard: {
               title: `🎓 ${dept} 상담 안내`,
               description: desc,
               buttons: [
-              { action: "phone", label: "📞 전화하기", phoneNumber: info.phone },
-              { action: "webLink", label: "📎 학과 안내 페이지", webLinkUrl: info.homepage },
-              { action: "webLink", label: "💬 오픈채팅", webLinkUrl: info.openchat }
+                { action: "phone",  label: "📞 전화하기",       phoneNumber: info.phone },
+                { action: "webLink", label: "📎 학과 안내 페이지", webLinkUrl: info.homepage },
+                { action: "webLink", label: "💬 오픈채팅",       webLinkUrl: info.openchat }
               ]
             }
           }
         ],
-        quickReplies: [{ action: "message", label: "다른 학과", messageText: "다른 학과 상담" }]
+        quickReplies: [
+          { action: "message", label: "다른 학과", messageText: "다른 학과 상담" }
+        ]
       }
     });
   } catch (e) {
