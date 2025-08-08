@@ -18,6 +18,11 @@ module.exports = (req, res) => {
 
     const info = contacts[dept];
 
+    // ✅ 썸네일 기본값(학과별 값이 없으면 이걸 사용)
+    const thumb =
+      info?.thumbnail ||
+      "https://t1.kakaocdn.net/kakaocorp/kakaocorp/admin/brand/brandCharacter/ryan.png";
+
     if (!dept) {
       return send(res, {
         version: "2.0",
@@ -61,10 +66,12 @@ module.exports = (req, res) => {
             basicCard: {
               title: `🎓 ${dept} 상담 안내`,
               description: desc,
+              // ✅ 여기!
+              thumbnail: { imageUrl: thumb },
               buttons: [
-              { action: "phone", label: "📞 전화하기", phoneNumber: info.phone },
-              { action: "webLink", label: "📎 학과 안내 페이지", webLinkUrl: info.homepage },
-              { action: "webLink", label: "💬 오픈채팅", webLinkUrl: info.openchat }
+                { action: "phone",  label: "📞 전화하기",          phoneNumber: info.phone },
+                { action: "webLink", label: "📎 학과 안내 페이지",  webLinkUrl: info.homepage },
+                { action: "webLink", label: "💬 오픈채팅",         webLinkUrl: info.openchat }
               ]
             }
           }
