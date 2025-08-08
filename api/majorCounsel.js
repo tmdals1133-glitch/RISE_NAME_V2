@@ -1,9 +1,11 @@
+// api/majorCounsel.js
 const contacts = require("../data/contacts.json");
 
 const send = (res, obj) => {
-  res.status(200)
-     .setHeader("Content-Type", "application/json; charset=utf-8")
-     .send(JSON.stringify(obj));
+  res
+    .status(200)
+    .setHeader("Content-Type", "application/json; charset=utf-8")
+    .send(JSON.stringify(obj));
 };
 
 module.exports = (req, res) => {
@@ -16,40 +18,51 @@ module.exports = (req, res) => {
       req.query?.RISE_name ||
       "";
 
-    const info = contacts[dept];
-
-    // ✅ 썸네일 기본값(학과별 값이 없으면 이걸 사용)
-    const thumb =
-      info?.thumbnail ||
-      "https://t1.kakaocdn.net/kakaocorp/kakaocorp/admin/brand/brandCharacter/ryan.png";
-
     if (!dept) {
       return send(res, {
         version: "2.0",
         template: {
           outputs: [
-            { simpleText: { text: "학과명을 인식하지 못했어요 😥 ‘웹툰’, ‘펫’처럼 다시 물어봐 주세요." } }
+            {
+              simpleText: {
+                text:
+                  "학과명을 인식하지 못했어요 😥 ‘웹툰’, ‘펫’처럼 다시 물어봐 주세요."
+              }
+            }
           ]
         }
       });
     }
 
+    const info = contacts[dept];
     if (!info) {
-      const quickReplies = Object.keys(contacts).slice(0, 8).map((name) => ({
-        action: "message",
-        label: name,
-        messageText: `${name} 상담 안내`
-      }));
+      const quickReplies = Object.keys(contacts)
+        .slice(0, 8)
+        .map((name) => ({
+          action: "message",
+          label: name,
+          messageText: `${name} 상담 안내`,
+        }));
+
       return send(res, {
         version: "2.0",
         template: {
           outputs: [
-            { simpleText: { text: `‘${dept}’ 학과를 찾지 못했어요 😥 아래에서 선택해 주세요.` } }
+            {
+              simpleText: {
+                text: `‘${dept}’ 학과를 찾지 못했어요 😥 아래에서 선택해 주세요.`,
+              }
+            }
           ],
           quickReplies
         }
       });
     }
+
+    // 썸네일(학과별 값 없으면 기본 이미지 사용)
+    const thumb =
+      info?.thumbnail ||
+      "https://rise-name-v2.vercel.app/images/basic.png";
 
     const desc =
       `안녕하세요! ${dept}에 관심 가져주셔서 감사합니다 😊\n` +
@@ -65,25 +78,30 @@ module.exports = (req, res) => {
           {
             basicCard: {
               title: `🎓 ${dept} 상담 안내`,
+              thumbnail: { imageUrl: thumb },            // ← 위로 이동
               description: desc,
-              // ✅ 여기!
-              thumbnail: { imageUrl: thumb },
               buttons: [
-                { action: "phone",  label: "📞 전화하기",          phoneNumber: info.phone },
-                { action: "webLink", label: "📎 학과 안내 페이지",  webLinkUrl: info.homepage },
-                { action: "webLink", label: "💬 오픈채팅",         webLinkUrl: info.openchat }
+                { action: "phone",  label: "📞 전화하기",        phoneNumber: info.phone },
+                { action: "webLink", label: "📎 학과 안내 페이지", webLinkUrl: info.homepage },
+                { action: "webLink", label: "💬 오픈채팅",       webLinkUrl: info.openchat }
               ]
             }
           }
         ],
-        quickReplies: [{ action: "message", label: "다른 학과", messageText: "다른 학과 상담" }]
+        quickReplies: [
+          { action: "message", label: "다른 학과", messageText: "다른 학과 상담" }
+        ]
       }
     });
   } catch (e) {
     console.error("[majorCounsel]", e);
     return send(res, {
       version: "2.0",
-      template: { outputs: [{ simpleText: { text: "요청 처리 중 오류가 발생했어요 😥" } }] }
+      template: {
+        outputs: [
+          { simpleText: { text: "요청 처리 중 오류가 발생했어요 😥" } }
+        ]
+      }
     });
   }
 };
