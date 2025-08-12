@@ -5,7 +5,8 @@
     "email": "sketcheerss@bsks.ac.kr",
     "openchat": "https://open.kakao.com/o/s5IzUcLh",
     "homepage": "https://www.instagram.com/bsksinsta/",
-    "thumbnail": "https://rise-name-v2.vercel.app/images/basic.jpg"
+    "thumbnail": "https://rise-name-v2.vercel.app/images/basic.jpg",
+    "hours": "09:00-17:00"
   },
   "AI콘텐츠계열": {
     "prof": "오가현 교수",
@@ -13,7 +14,8 @@
     "email": "ogh0901@bsks.ac.kr",
     "openchat": "https://open.kakao.com/o/s5IzUcLh",
     "homepage": "https://www.instagram.com/bsksinsta/",
-    "thumbnail": "https://rise-name-v2.vercel.app/images/basic.jpg"
+    "thumbnail": "https://rise-name-v2.vercel.app/images/basic.jpg",
+    "hours": "09:00-17:00"
   },
   "미디어코스프레과": {
     "prof": "안용준 교수",
@@ -21,7 +23,8 @@
     "email": "ayj@bsks.ac.kr",
     "openchat": "https://open.kakao.com/o/szX5w6Lh",
     "homepage": "https://www.instagram.com/bsksinsta/",
-    "thumbnail": "https://rise-name-v2.vercel.app/images/basic.jpg"
+    "thumbnail": "https://rise-name-v2.vercel.app/images/basic.jpg",
+    "hours": "09:00-17:00"
   },
   "펫크리에이터과": {
     "prof": "권기만 교수",
@@ -29,7 +32,8 @@
     "email": "mani8410@bsks.ac.kr",
     "openchat": "https://open.kakao.com/o/sfG8mULh",
     "homepage": "https://www.instagram.com/bsksinsta/",
-    "thumbnail": "https://rise-name-v2.vercel.app/images/basic.jpg"
+    "thumbnail": "https://rise-name-v2.vercel.app/images/basic.jpg",
+    "hours": "09:00-17:00"
   },
   "스마트디저트과": {
     "prof": "홍서형 교수",
@@ -37,6 +41,7 @@
     "email": "hong0414@bsks.ac.kr",
     "openchat": "https://open.kakao.com/o/sP8ulXLh",
     "homepage": "https://www.instagram.com/bsksinsta/",
-    "thumbnail": "https://rise-name-v2.vercel.app/images/basic.jpg"
+    "thumbnail": "https://rise-name-v2.vercel.app/images/basic.jpg",
+    "hours": "09:00-17:00"
   }
 }
